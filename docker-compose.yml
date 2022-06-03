@@ -1,0 +1,16 @@
+version: "3"
+services:
+  masterserver:
+    build:
+      context: .docker/master/.
+      args:
+        MASTER_SERVER_PORT: ${MASTER_SERVER_PORT}
+        MASTER_SERVER_USER: ${MASTER_SERVER_USER}
+    env_file:
+      - .env
+    container_name: masterserver
+    command: tail -F anything
+    ports:
+      - ${MASTER_SERVER_PORT}:27010/udp
+    volumes:
+      - ./src:/masterserver
